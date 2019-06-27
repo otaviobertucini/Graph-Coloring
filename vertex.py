@@ -15,9 +15,4 @@ class Vertex:
         return len(self.edges)
 
     def get_sat_degree(self):
-        # count = 0
-        # for edge in edges:
-        #     if edge.color is None:
-        #         count += 1
-        # return count
         return self.sat_degree

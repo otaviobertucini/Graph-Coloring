@@ -2,6 +2,7 @@ from vertex import Vertex
 import csv
 
 # Made by Otavio Bertucini / 2019
+# "grafo02.csv"
 
 def make_graph():
 
@@ -110,22 +111,43 @@ def main():
     colored += 1
 
     # continue until all vertices are colored
-    while colored < len(vertices):
-        max_sat_degre = vertices[get_max_sat_degree(vertices)].sat_degree
+    while colored <= len(vertices):
+        max_sat_degre = vertices[get_max_sat_degree(vertices)]
+        # print(max_sat_degre.id)
         equal_degrees = []
         for vertex in vertices:
-            if vertex.sat_degree == max_sat_degre:
+            if vertex.sat_degree == max_sat_degre.sat_degree and \
+            vertex.color is None:
                 equal_degrees.append(vertex)
-        print(equal_degrees)
-        vertex = vertices[get_max_degree(equal_degrees)]
-        vertex = color_vertex(vertex, colors)
 
+        # print("------------")
+        # for e in equal_degrees:
+        #     print(e.id)
+
+        # print(get_max_degree(equal_degrees))
+        # print(len(equal_degrees))
+
+        if len(equal_degrees) > 0:
+            vertex = equal_degrees[get_max_degree(equal_degrees)]
+        else:
+            vertex = max_sat_degre
+        vertex = color_vertex(vertex, colors)
         colored += 1
 
+    # test if it works properly
+    test(vertices)
+
+def test(vertices):
 
     for vertex in vertices:
 
-        print(vertex.color)
+        curr_color = vertex.color
+        for e in vertex.edges:
+            if e.color == curr_color:
+                print("Deu ruim")
+                return False
 
+    print("Deu certo")
+    return True
 
 main()
