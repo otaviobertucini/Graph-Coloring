@@ -137,6 +137,9 @@ def main():
     # test if it works properly
     test(vertices)
 
+    # write result in csv
+    write_file(vertices)
+
 def test(vertices):
 
     for vertex in vertices:
@@ -149,5 +152,15 @@ def test(vertices):
 
     print("Deu certo")
     return True
+
+def write_file(vertices):
+
+    with open('result.csv', mode='w') as result:
+        writer = csv.writer(result, delimiter=',',
+        quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        for vertex in vertices:
+            writer.writerow([str(vertex.id), ' ' + str(vertex.color)])
+
 
 main()
